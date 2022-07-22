@@ -1,21 +1,10 @@
-import express from "express";
-const app = express();
+import Socket from "./Models/Socket";
+import SocketListener from "./Services/SocketListener";
+import { httpServer } from "./Services/http";
 
-import http from "http";
-const server = http.createServer(app);
-import { Server } from "socket.io";
-import { getRoomId, enterRoom } from "./Services/roomService";
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-});
+Socket.start();
+SocketListener.start();
 
-io.on("connection", (socket) => {
-  const roomId = getRoomId().toString();
-  enterRoom(socket, roomId);
-});
-
-server.listen(3000, () => {
-  console.log("listening on 3000");
+httpServer.listen(3000, () => {
+  console.log("Server rodando na porta 3000.");
 });

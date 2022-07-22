@@ -1,23 +1,21 @@
-import { Socket } from "socket.io";
+import { Socket as SC } from "socket.io";
+import { Guid } from "../Models/Guid";
+import Room from "../Models/Rooms";
 
-class Room {
-  constructor(public id: number, public players: string[]) {}
+let id: string;
+let room: Room;
+
+function newRoom() {
+  id = Guid.newGuid();
+  room = new Room();
+  room.uuid = id;
 }
-let id = 0;
-let room = new Room(id, []);
+newRoom();
 
-const getRoomId = () => {
-  if (room.players.length <= 5) {
-    return room.id;
-  }
-  id++;
-  room = new Room(id, []);
-  return room.id;
+const getRoomId = (socket: SC) => {
+  if (room.players.length <= 5) return room.uuid;
+  newRoom();
+  return room.uuid;
 };
 
-const enterRoom = (socket: Socket, roomId: string) => {
-  socket.join(roomId);
-  room.players.push(socket.id);
-};
-
-export { getRoomId, enterRoom };
+export { getRoomId };
