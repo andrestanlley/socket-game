@@ -5,5 +5,7 @@
 ></script>
 <script>
   let socket = io("http://localhost:3000/");
-  socket.on("connection");
+  socket.on('question', (data)=>{
+    console.log(data)
+  })
 </script>

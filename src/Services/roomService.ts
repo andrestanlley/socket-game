@@ -9,13 +9,14 @@ function newRoom() {
   id = Guid.newGuid();
   room = new Room();
   room.uuid = id;
+  room.players = []
 }
 newRoom();
 
-const getRoomId = (socket: SC) => {
-  if (room.players.length <= 5) return room.uuid;
+const getRoomId = () => {
+  if (room.players.length <= 5) return room;
   newRoom();
-  return room.uuid;
+  return room;
 };
 
 export { getRoomId };
