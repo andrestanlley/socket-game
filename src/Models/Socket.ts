@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { httpServer } from "../Services/http";
+import { httpServer } from "../Setup/http"
 
 class Socket {
   public io!: Server;

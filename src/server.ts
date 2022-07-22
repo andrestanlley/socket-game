@@ -1,6 +1,6 @@
 import Socket from "./Models/Socket";
 import SocketListener from "./Services/SocketListener";
-import { httpServer } from "./Services/http";
+import { httpServer } from "./Setup/http"
 
 Socket.start();
 SocketListener.start();
