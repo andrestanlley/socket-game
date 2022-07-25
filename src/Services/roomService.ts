@@ -3,7 +3,7 @@ import Room from '../Models/Rooms';
 
 let id: string;
 let room: Room;
-let privateRooms: any;
+let privateRooms: any = {};
 
 function newRoom() {
   room = new Room();
@@ -12,9 +12,9 @@ function newRoom() {
 }
 
 function newPrivateRoom(roomId: string) {
-  console.log(roomId);
-  // if (privateRooms[roomId]) return privateRooms[roomId];
-  privateRooms[roomId] = newRoom();
+  if (privateRooms[roomId]) return privateRooms[roomId];
+  let room = newRoom()
+  privateRooms[roomId] = room
   return privateRooms[roomId];
 }
 

@@ -20,10 +20,11 @@ export default class Room {
   }
 
   enterRoom(socket: SC) {
-    socket.join(this.uuid);
-    console.log(socket.id)
-    this.players.push({ socketId: socket.id, points: 0 });
-    this.sendQuestion();
+    if (!this.players.find((player) => player.socketId === socket.id)) {
+      socket.join(this.uuid);
+      this.players.push({ socketId: socket.id, points: 0 });
+      this.sendQuestion();
+    }
   }
 
   sendQuestion() {
@@ -45,7 +46,9 @@ export default class Room {
   }
 
   quitRoom(socket: SC) {
-    let socketIndex = this.players!.findIndex((sc) => sc.socketId === socket.id);
+    let socketIndex = this.players!.findIndex(
+      (sc) => sc.socketId === socket.id
+    );
     if (socketIndex > -1) {
       socket.leave(this.uuid);
       this.players.splice(socketIndex);
